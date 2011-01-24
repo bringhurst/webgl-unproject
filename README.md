@@ -13,6 +13,6 @@ Simple Example
         modelViewMatrix, projectionMatrix,
         viewportArray, modelPointArrayResults);
     
-    modelPointArrayResults[0] = ... // x model coordinate
-    modelPointArrayResults[1] = ... // y model coordinate
-    modelPointArrayResults[2] = ... // z model coordinate
+    modelPointArrayResults[0] = <'x' model coordinate value>
+    modelPointArrayResults[1] = <'y' model coordinate value>
+    modelPointArrayResults[2] = <'z' model coordinate value>
