@@ -1,7 +1,7 @@
 /*jslint white: false, onevar: false, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: true, regexp: true, newcap: true, immed: true, sub: true, nomen: false */
 
 /**
- * This file also contains code that may be under the following license:
+ * This file contains code that may be under the following license:
  *
  * SGI FREE SOFTWARE LICENSE B (Version 2.0, Sept. 18, 2008)
  * Copyright (C) 1991-2000 Silicon Graphics, Inc. All Rights Reserved.
@@ -15,7 +15,7 @@
  * distribute this software, either in source code form or as a compiled
  * binary, for any purpose, commercial or non-commercial, and by any
  * means.
- * 
+ *
  * In jurisdictions that recognize copyright laws, the author or authors
  * of this software dedicate any and all copyright interest in the
  * software to the public domain. We make this dedication for the benefit
@@ -23,7 +23,7 @@
  * successors. We intend this dedication to be an overt act of
  * relinquishment in perpetuity of all present and future rights to this
  * software under copyright law.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -50,7 +50,7 @@ var GLU = {};
      * @return {boolean} true if the unproject operation was successful, false otherwise.
      */
     $.unProject = function(winX, winY, winZ, model, proj, view, objPos) {
-    
+
         /** @type {Array.<number>} */
         var inp = [
             winX,
@@ -58,44 +58,44 @@ var GLU = {};
             winZ,
             1.0
         ];
-    
+
         /** @type {Array.<number>} */
         var finalMatrix = [];
-    
+
         $.multMatrices(model, proj, finalMatrix);
         if (!$.invertMatrix(finalMatrix, finalMatrix)) {
             return (false);
         }
-    
+
         /* Map x and y from window coordinates */
         inp[0] = (inp[0] - view[0]) / view[2];
         inp[1] = (inp[1] - view[1]) / view[3];
-    
+
         /* Map to range -1 to 1 */
         inp[0] = inp[0] * 2 - 1;
         inp[1] = inp[1] * 2 - 1;
         inp[2] = inp[2] * 2 - 1;
-    
+
         /** @type {Array.<number>} */
         var out = [];
-    
+
         $.multMatrixVec(finalMatrix, inp, out);
-    
+
         if (out[3] === 0.0) {
             return false;
         }
-    
+
         out[0] /= out[3];
         out[1] /= out[3];
         out[2] /= out[3];
-    
+
         objPos[0] = out[0];
         objPos[1] = out[1];
         objPos[2] = out[2];
-    
+
         return true;
     };
-    
+
     /**
      * Multiply the matrix by the specified vector.
      *
@@ -112,7 +112,7 @@ var GLU = {};
                 inp[3] * matrix[3 * 4 + i];
         }
     };
-    
+
     /**
      * Multiply the specified matrices.
      *
@@ -131,7 +131,7 @@ var GLU = {};
             }
         }
     };
-    
+
     /**
      * Invert a matrix.
      *
@@ -140,8 +140,9 @@ var GLU = {};
      * @return {boolean} true if successful, false otherwise.
      */
     $.invertMatrix = function(m, invOut) {
+        /** @type {Array.<number>} */
         var inv = [];
-    
+
         inv[0] = m[5] * m[10] * m[15] - m[5] * m[11] * m[14] - m[9] * m[6] * m[15] +
             m[9] * m[7] * m[14] + m[13] * m[6] * m[11] - m[13] * m[7] * m[10];
         inv[4] = -m[4] * m[10] * m[15] + m[4] * m[11] * m[14] + m[8] * m[6] * m[15] -
@@ -174,22 +175,23 @@ var GLU = {};
             m[4] * m[3] * m[9] - m[8] * m[1] * m[7] + m[8] * m[3] * m[5];
         inv[15] = m[0] * m[5] * m[10] - m[0] * m[6] * m[9] - m[4] * m[1] * m[10] +
             m[4] * m[2] * m[9] + m[8] * m[1] * m[6] - m[8] * m[2] * m[5];
-    
+
+        /** @type {number} */
         var det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
-    
+
         if (det === 0) {
             return false;
         }
-    
+
         det = 1.0 / det;
-    
+
         for (var i = 0; i < 16; i = i + 1) {
             invOut[i] = inv[i] * det;
         }
-    
+
         return true;
     };
 
 }(GLU));
-    
+
 /* EOF */
