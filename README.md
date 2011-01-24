@@ -6,6 +6,11 @@ This is a port of the usual gluUnProject function to javascript for use in WebGL
 Simple Example
 --------------
 
+    var viewportArray = [
+        viewportOriginX, viewportOriginY, viewportWidth, viewportHeight
+    ];
+    
+    // The results of the operation will be stored in this array.
     var modelPointArrayResults = [];
     
     var success = GLU.unProject(
