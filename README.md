@@ -7,19 +7,20 @@ This code was originally written for picking support in Lanyard (http://github.c
 
 Simple Example
 --------------
+```js
+const viewportArray = [
+    viewportOriginX, viewportOriginY, viewportWidth, viewportHeight
+];
 
-    var viewportArray = [
-        viewportOriginX, viewportOriginY, viewportWidth, viewportHeight
-    ];
-    
-    // The results of the operation will be stored in this array.
-    var modelPointArrayResults = [];
-    
-    var success = GLU.unProject(
-        windowPointX, windowPointY, windowPointZ,
-        modelViewMatrix, projectionMatrix,
-        viewportArray, modelPointArrayResults);
-    
-    modelPointArrayResults[0] = <'x' model coordinate value>
-    modelPointArrayResults[1] = <'y' model coordinate value>
-    modelPointArrayResults[2] = <'z' model coordinate value>
+// The results of the operation will be stored in this array.
+const modelPointArrayResults = [];
+
+const success = GLU.unProject(
+    windowPointX, windowPointY, windowPointZ,
+    modelViewMatrix, projectionMatrix,
+    viewportArray, modelPointArrayResults);
+
+modelPointArrayResults[0] = <'x' model coordinate value>
+modelPointArrayResults[1] = <'y' model coordinate value>
+modelPointArrayResults[2] = <'z' model coordinate value>
+```
