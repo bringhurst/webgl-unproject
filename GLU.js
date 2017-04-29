@@ -36,7 +36,7 @@
 /** @type {Object} */
 var GLU = {};
 
-(function($) {
+(($ => {
     /**
      * Unproject a screen point.
      *
@@ -49,7 +49,7 @@ var GLU = {};
      * @param {Array.<number>} objPos the model point result.
      * @return {boolean} true if the unproject operation was successful, false otherwise.
      */
-    $.unProject = function(winX, winY, winZ, model, proj, view, objPos) {
+    $.unProject = (winX, winY, winZ, model, proj, view, objPos) => {
 
         /** @type {Array.<number>} */
         var inp = [
@@ -103,7 +103,7 @@ var GLU = {};
      * @param {Array.<number>} inp the vector.
      * @param {Array.<number>} out the output.
      */
-    $.multMatrixVec = function(matrix, inp, out) {
+    $.multMatrixVec = (matrix, inp, out) => {
         for (var i = 0; i < 4; i = i + 1) {
             out[i] =
                 inp[0] * matrix[0 * 4 + i] +
@@ -120,7 +120,7 @@ var GLU = {};
      * @param {Array.<number>} b the second matrix.
      * @param {Array.<number>} r the result.
      */
-    $.multMatrices = function(a, b, r) {
+    $.multMatrices = (a, b, r) => {
         for (var i = 0; i < 4; i = i + 1) {
             for (var j = 0; j < 4; j = j + 1) {
                 r[i * 4 + j] =
@@ -139,7 +139,7 @@ var GLU = {};
      * @param {Array.<number>} invOut the inverted output.
      * @return {boolean} true if successful, false otherwise.
      */
-    $.invertMatrix = function(m, invOut) {
+    $.invertMatrix = (m, invOut) => {
         /** @type {Array.<number>} */
         var inv = [];
 
@@ -192,6 +192,6 @@ var GLU = {};
         return true;
     };
 
-}(GLU));
+})(GLU));
 
 /* EOF */
